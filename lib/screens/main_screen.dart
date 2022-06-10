@@ -15,17 +15,18 @@ class _MainScreenState extends State<MainScreen> {
   UserModel loggedInUser = UserModel();
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     FirebaseFirestore.instance
         .collection("users")
         .doc(user!.uid)
         .get()
-        .then((value){
+        .then((value) {
       this.loggedInUser = UserModel.fromMap(value.data());
       setState(() {});
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +41,9 @@ class _MainScreenState extends State<MainScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: 100, child: Image.asset("assets/TRAVEL.png", fit: BoxFit.contain)),
+              SizedBox(
+                  height: 100,
+                  child: Image.asset("assets/TRAVEL.png", fit: BoxFit.contain)),
               Text(
                 "Welcome Back!",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -73,13 +76,16 @@ class _MainScreenState extends State<MainScreen> {
               SizedBox(
                 height: 45,
               ),
-              ActionChip(label: Text("Logout"), onPressed: () {
-                logout(context);
-              }),
+              ActionChip(
+                  label: Text("Logout"),
+                  onPressed: () {
+                    logout(context);
+                  }),
             ],
           ),
         )));
   }
+
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacement(

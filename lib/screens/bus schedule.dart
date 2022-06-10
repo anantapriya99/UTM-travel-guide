@@ -57,7 +57,7 @@ class MyStatelessWidget extends StatelessWidget {
             DataCell(Text('7:15AM')),
             DataCell(Text('7 AM')),
             DataCell(Text('8 AM')),
-            ],
+          ],
         ),
         DataRow(
           cells: <DataCell>[
@@ -79,6 +79,8 @@ class MyStatelessWidget extends StatelessWidget {
             DataCell(Text('1:00PM')),
             DataCell(Text('3:15PM')),
           ],
-        ), 
+        ),
       ],
     );
+  }
+}
