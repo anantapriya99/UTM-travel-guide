@@ -87,31 +87,13 @@
     },
     {
       "name": "firebase_core_platform_interface",
-      "rootUri": "file:///Users/priyamageswaran/Development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.4.1",
+      "rootUri": "file:///Users/priyamageswaran/Development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.4.0",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
     {
       "name": "firebase_core_web",
-      "rootUri": "file:///Users/priyamageswaran/Development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.6.5",
-      "packageUri": "lib/",
-      "languageVersion": "2.16"
-    },
-    {
-      "name": "firebase_database",
-      "rootUri": "file:///Users/priyamageswaran/Development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_database-9.0.16",
-      "packageUri": "lib/",
-      "languageVersion": "2.16"
-    },
-    {
-      "name": "firebase_database_platform_interface",
-      "rootUri": "file:///Users/priyamageswaran/Development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_database_platform_interface-0.2.1+8",
-      "packageUri": "lib/",
-      "languageVersion": "2.16"
-    },
-    {
-      "name": "firebase_database_web",
-      "rootUri": "file:///Users/priyamageswaran/Development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_database_web-0.2.0+15",
+      "rootUri": "file:///Users/priyamageswaran/Development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.6.4",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
@@ -308,7 +290,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-06-25T17:35:29.121051Z",
+  "generated": "2022-06-10T12:20:23.971487Z",
   "generator": "pub",
   "generatorVersion": "2.16.2"
 }
