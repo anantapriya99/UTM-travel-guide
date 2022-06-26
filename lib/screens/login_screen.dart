@@ -1,11 +1,12 @@
-
 import 'dart:ui' show FontWeight, TextAlign;
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:helloworld/admin_homepage.dart';
 import 'package:helloworld/screens/main_screen.dart';
 import 'package:helloworld/screens/register_screen.dart';
 
@@ -42,7 +43,8 @@ class _LoginScreenState extends State<LoginScreen> {
             return ("Please Enter Your Email");
           }
           // reg expression for email validation
-          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)) {
+          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+              .hasMatch(value)) {
             return ("Please Enter a valid email");
           }
           return null;
@@ -100,7 +102,12 @@ class _LoginScreenState extends State<LoginScreen> {
           logIn(emailController.text, passwordController.text);
           //Navigator.push(context, MaterialPageRoute(builder: (context) => MainScreen()));
         },
-        child: Text("Login", textAlign: TextAlign.center, style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold)),
+        child: Text("Login",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                fontWeight: FontWeight.bold)),
       ),
     );
 
@@ -120,7 +127,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: <Widget>[
                     SizedBox(
                       height: 150,
-                      child: Image.asset("assets/TRAVEL.png", fit: BoxFit.contain),
+                      child:
+                          Image.asset("assets/TRAVEL.png", fit: BoxFit.contain),
                     ),
                     SizedBox(height: 45),
                     emailField,
@@ -135,11 +143,18 @@ class _LoginScreenState extends State<LoginScreen> {
                         Text("Don't have an account?"),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push<void>(context, MaterialPageRoute(builder: (context) => RegistrationScreen()));
+                            Navigator.push<void>(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        RegistrationScreen()));
                           },
                           child: Text(
                             "Register",
-                            style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 15),
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
                           ),
                         )
                       ],
@@ -154,7 +169,78 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  //login function
+  /*//login function
+  void logIn(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      await _auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((DataSnapshot snapshot) {
+        setState(() {
+          if (snapshot.value['role'] == 'Admin') {
+            //for admin
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => MainScreen()));
+          } else if (snapshot.value['role'] == 'User') {
+            //for user
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AdminScreen()));
+          }
+          //.catchError((e) {
+          //Fluttertoast.showToast(msg: e!.message);
+        });
+      });
+    }
+  }*/
+//login function
+  void logIn(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      await _auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((uid) => {
+                FirebaseFirestore.instance
+                    .collection('/users')
+                    .get()
+                    .then((results) {
+                  if (results.size > 0) {
+                    if (results.docs[0].data()['role'] == 'Admin') {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => AdminHomepage()));
+                    } else if (results.docs[0].data()['role'] == 'User') {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => MainScreen()));
+                    }
+                  }
+                })
+              });
+    }
+  }
+
+//login function
+  /*void logIn(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      await _auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((uid) => {
+                FirebaseFirestore.instance.collection('/users')
+                .getDocuments()
+                .then((docs){
+                  if(docs.documents[0].exists){
+                    if(docs.documents[0].data['role']=='Admin'){
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => AdminHomepage()));
+                    }
+                    if(docs.documents[0].data['role']=='User'){
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MainScreen()));
+                    }
+                  }
+                });
+                .catchError((e) {
+                Fluttertoast.showToast(msg: e!.message);
+              });
+          
+      });
+    }
+  }*/
+  /*//login function
   void logIn(String email, String password) async {
     if (_formKey.currentState!.validate()) {
       await _auth
@@ -167,5 +253,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Fluttertoast.showToast(msg: e!.message);
       });
     }
-  }
+  }*/
+  //login function
+
 }
